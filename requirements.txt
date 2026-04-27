@@ -1,0 +1,57 @@
+# ============================================================
+# AgniGeo — Phase 1 Dependencies
+# Urban Thermal Comfort AI for India (UTCI prediction)
+# ============================================================
+
+# --- Core Python & ML ---
+numpy>=1.26.0
+pandas>=2.2.0
+scipy>=1.13.0
+scikit-learn>=1.4.0
+matplotlib>=3.9.0
+seaborn>=0.13.0
+tqdm>=4.66.0
+PyYAML>=6.0
+
+# --- Deep Learning (PyTorch ecosystem) ---
+torch>=2.3.0
+torchvision>=0.18.0
+# torch-geometric installed separately (see setup guide)
+
+# --- Geospatial core ---
+rasterio>=1.3.10
+geopandas>=0.14.4
+shapely>=2.0.4
+pyproj>=3.6.1
+fiona>=1.9.6
+rtree>=1.2.0
+
+# --- Remote sensing / satellite data ---
+earthengine-api>=0.1.400
+geemap>=0.32.0
+sentinelsat>=1.2.1
+
+# --- Meteorological data ---
+cdsapi>=0.7.0          # ERA5 via Copernicus Climate Data Store
+cfgrib>=0.9.12
+xarray>=2024.6.0
+netCDF4>=1.7.1
+
+# --- Urban morphology / OSM ---
+osmnx>=1.9.3
+# pyrosm>=0.6.2  # Temporarily disabled due to pyrobuf compilation issues on Python 3.12
+
+# --- Physics / UTCI calculation ---
+pythermalcomfort>=2.9.0   # UTCI, PET, PMV equations
+pvlib>=0.10.5              # Solar radiation / irradiance
+
+# --- Experiment tracking ---
+wandb>=0.17.0
+
+# --- Explainability (Phase 4+) ---
+shap>=0.45.0
+
+# --- Notebook / dev ---
+jupyter>=1.0.0
+ipykernel>=6.29.0
+ipywidgets>=8.1.0
