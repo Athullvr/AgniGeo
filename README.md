@@ -88,28 +88,6 @@ agnigeo/
 
 ---
 
-## 🚀 Quick Start
-
-### 1. Setup environment
-```bash
-git clone https://github.com/your-username/agnigeo.git
-cd agnigeo
-bash scripts/setup_env.sh
-conda activate agnigeo
-```
-
-### 2. Verify everything works
-```bash
-jupyter notebook notebooks/01_verify_environment.ipynb
-```
-
-### 3. Download pilot data (Kochi)
-```bash
-python src/data/download.py --city kochi --source osm
-```
-
----
-
 ## 🗺️ Roadmap
 
 | Phase | Months | Goal |
