@@ -26,7 +26,7 @@ pyproj>=3.6.1
 fiona>=1.9.6
 rtree>=1.2.0
 
-# --- Remote sensing / satellite data ---
+# --- .\.venv\Scripts\jupyter.exe notebook sensing / satellite data ---
 earthengine-api>=0.1.400
 geemap>=0.32.0
 sentinelsat>=1.2.1
