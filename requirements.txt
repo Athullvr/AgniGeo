@@ -34,6 +34,7 @@ sentinelsat>=1.2.1
 # --- Meteorological data ---
 cdsapi>=0.7.0          # ERA5 via Copernicus Climate Data Store
 cfgrib>=0.9.12
+eccodes>=2.0.0
 xarray>=2024.6.0
 netCDF4>=1.7.1
 
@@ -44,6 +45,7 @@ osmnx>=1.9.3
 # --- Physics / UTCI calculation ---
 pythermalcomfort>=2.9.0   # UTCI, PET, PMV equations
 pvlib>=0.10.5              # Solar radiation / irradiance
+solweig>=0.1.0b32          # Scriptable UMEP/SOLWEIG teacher
 
 # --- Experiment tracking ---
 wandb>=0.17.0
@@ -55,3 +57,4 @@ shap>=0.45.0
 jupyter>=1.0.0
 ipykernel>=6.29.0
 ipywidgets>=8.1.0
+pytest>=8.0.0
