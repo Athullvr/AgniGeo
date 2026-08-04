@@ -1,0 +1,14 @@
+project: agnigeo
+paths: {raw: data/raw, processed: data/processed, outputs: outputs}
+cities:
+  thrissur:
+    # west, south, east, north: central Thrissur pilot area
+    bbox: [76.2050, 10.5100, 76.2250, 10.5300]
+    crs: EPSG:32643
+    # Phase 1 uses the native ~30 m SRTM resolution; no false 10 m upsampling.
+    resolution_m: 30
+scenarios:
+  thrissur_pre_monsoon: {timestamp_utc: '2024-04-15T06:30:00Z'}
+  thrissur_post_monsoon: {timestamp_utc: '2024-11-15T06:30:00Z'}
+preprocess: {default_building_height_m: 9.0, story_height_m: 3.0, svf_search_radius_m: 50.0}
+teacher: {command_env: AGNIGEO_SOLWEIG_COMMAND, expected_utci_range_c: [20.0, 50.0]}

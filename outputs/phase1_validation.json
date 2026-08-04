@@ -1,0 +1,26 @@
+{
+  "status": "complete",
+  "city": "Thrissur, Kerala, India",
+  "resolution_m": 30,
+  "teacher": "solweig 0.1.0b92",
+  "input_evidence": {
+    "osm_building_footprints": 3563,
+    "dem": "SRTMGL1, reprojected to EPSG:32643",
+    "era5_variables": ["t2m", "d2m", "u10", "v10", "ssrd"]
+  },
+  "runs": [
+    {
+      "scenario": "pre_monsoon",
+      "timestamp_utc": "2024-04-15T12:00:00Z",
+      "utci_c": {"min": 33.16, "max": 34.14, "mean": 34.12},
+      "solweig_wall_seconds": 0.596
+    },
+    {
+      "scenario": "post_monsoon",
+      "timestamp_utc": "2024-11-15T12:00:00Z",
+      "utci_c": {"min": 32.53, "max": 33.23, "mean": 33.17},
+      "solweig_wall_seconds": 0.359
+    }
+  ],
+  "tests": "6 passed"
+}
