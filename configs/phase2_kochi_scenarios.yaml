@@ -1,0 +1,17 @@
+# Real SOLWEIG teacher-label coverage required before any Phase 2 model training.
+# Timestamps are UTC; corresponding local time is IST (UTC+05:30).
+city: kochi
+target_resolution_m: 10
+scenarios:
+  - {id: kochi_mar_morning, timestamp_utc: '2024-03-15T03:00:00Z'}
+  - {id: kochi_mar_midday, timestamp_utc: '2024-03-15T07:00:00Z'}
+  - {id: kochi_mar_afternoon, timestamp_utc: '2024-03-15T11:00:00Z'}
+  - {id: kochi_apr_morning, timestamp_utc: '2024-04-15T03:00:00Z'}
+  - {id: kochi_apr_midday, timestamp_utc: '2024-04-15T07:00:00Z'}
+  - {id: kochi_apr_afternoon, timestamp_utc: '2024-04-15T11:00:00Z'}
+  - {id: kochi_may_morning, timestamp_utc: '2024-05-15T03:00:00Z'}
+  - {id: kochi_may_midday, timestamp_utc: '2024-05-15T07:00:00Z'}
+  - {id: kochi_may_afternoon, timestamp_utc: '2024-05-15T11:00:00Z'}
+  - {id: kochi_oct_morning, timestamp_utc: '2024-10-15T03:00:00Z'}
+  - {id: kochi_oct_midday, timestamp_utc: '2024-10-15T07:00:00Z'}
+  - {id: kochi_oct_afternoon, timestamp_utc: '2024-10-15T11:00:00Z'}

@@ -1,0 +1,8 @@
+phase3:
+  status: deferred_until_phase2_validated
+  physics_weight: 0.1
+  ablations: [unet_film, unet_film_pinn, unet_film_pinn_gnn]
+phase4:
+  status: deferred_until_phase3_validated
+  label_fractions: [1.0, 0.5, 0.1]
+  candidate_climate_zones: [BSh, Cwa, BWh, Cfa]

@@ -17,6 +17,8 @@ outputs/maps/*
 __pycache__/
 *.py[cod]
 *$py.class
+*.grib
+*.grib.*.idx
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/

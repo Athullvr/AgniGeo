@@ -21,9 +21,9 @@ from src.utils.config import load_config
 ROOT = Path(__file__).parents[1]
 
 
-def prepare_rasters(config: dict) -> dict[str, Path]:
+def prepare_rasters(config: dict, city_name: str = "thrissur") -> dict[str, Path]:
     """Project DEM and real OSM footprints together on one native-resolution grid."""
-    city = config["cities"]["thrissur"]
+    city = config["cities"][city_name]
     west, south, east, north = city["bbox"]
     crs, resolution = city["crs"], city["resolution_m"]
     minx, miny, maxx, maxy = transform_bounds("EPSG:4326", crs, west, south, east, north, densify_pts=21)
@@ -32,15 +32,15 @@ def prepare_rasters(config: dict) -> dict[str, Path]:
     width, height = int(round((maxx - minx) / resolution)), int(round((maxy - miny) / resolution))
     transform = from_origin(minx, maxy, resolution, resolution)
     profile = {"driver": "GTiff", "height": height, "width": width, "count": 1, "dtype": "float32", "crs": crs, "transform": transform, "nodata": -9999.0, "compress": "lzw"}
-    out = ROOT / "data/processed/ndsm/thrissur"; out.mkdir(parents=True, exist_ok=True)
+    out = ROOT / "data/processed/ndsm" / city_name; out.mkdir(parents=True, exist_ok=True)
 
     dem = np.full((height, width), -9999.0, dtype=np.float32)
-    with rasterio.open(ROOT / "data/raw/dem/thrissur_dem.tif") as source:
+    with rasterio.open(ROOT / "data/raw/dem" / f"{city_name}_dem.tif") as source:
         reproject(rasterio.band(source, 1), dem, src_transform=source.transform, src_crs=source.crs, src_nodata=source.nodata, dst_transform=transform, dst_crs=crs, dst_nodata=-9999.0, resampling=Resampling.bilinear)
     if np.any(dem == -9999.0):
         raise ValueError("DEM does not cover the complete configured Thrissur bbox.")
 
-    buildings = gpd.read_file(ROOT / "data/raw/osm/thrissur/buildings.geojson").to_crs(crs)
+    buildings = gpd.read_file(ROOT / "data/raw/osm" / city_name / "buildings.geojson").to_crs(crs)
     default_height = config["preprocess"]["default_building_height_m"]
     story_height = config["preprocess"]["story_height_m"]
     shapes = [(geometry, building_height_from_tags(properties, default_height, story_height)) for geometry, properties in zip(buildings.geometry, buildings.drop(columns="geometry").to_dict("records")) if geometry is not None and not geometry.is_empty]
@@ -54,13 +54,15 @@ def prepare_rasters(config: dict) -> dict[str, Path]:
     return outputs
 
 
-def meteorology_from_grib(path: Path) -> dict[str, float | str]:
+def meteorology_from_grib(path: Path, latitude: float | None = None, longitude: float | None = None) -> dict[str, float | str]:
     """Extract one ERA5 point; SSRD accumulated energy is converted to mean W/m²."""
     datasets = cfgrib.open_datasets(str(path))
-    values = {name: float(dataset[name].values) for dataset in datasets for name in dataset.data_vars}
     weather = next(dataset for dataset in datasets if "t2m" in dataset.data_vars)
     radiation = next(dataset for dataset in datasets if "ssrd" in dataset.data_vars)
-    duration_s = float(radiation.step.values / np.timedelta64(1, "s"))
+    if latitude is not None and longitude is not None:
+        weather, radiation = weather.sel(latitude=latitude, longitude=longitude, method="nearest"), radiation.sel(latitude=latitude, longitude=longitude, method="nearest")
+    values = {name: float(dataset[name].values) for dataset in (weather, radiation) for name in dataset.data_vars}
+    duration_s = max(float(radiation.step.values / np.timedelta64(1, "s")), 3600.0)
     ta, dew = values["t2m"] - 273.15, values["d2m"] - 273.15
     # Magnus saturation-vapour-pressure relation (Alduchov & Eskridge, 1996) for RH.
     rh = 100 * np.exp((17.625 * dew) / (243.04 + dew) - (17.625 * ta) / (243.04 + ta))

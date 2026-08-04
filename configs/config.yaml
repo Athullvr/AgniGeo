@@ -7,6 +7,15 @@ cities:
     crs: EPSG:32643
     # Phase 1 uses the native ~30 m SRTM resolution; no false 10 m upsampling.
     resolution_m: 30
+  kochi:
+    # Central Kochi training pilot; west, south, east, north.
+    bbox: [76.2700, 9.9500, 76.3000, 9.9800]
+    crs: EPSG:32643
+    # Phase 2 target. Do not use SRTM-only terrain to claim 10 m labels.
+    resolution_m: 10
+    # CDS sub-region requests require at least 0.25° longitude span. This larger
+    # meteorology box feeds the small street-level bbox above.
+    era5_request_bbox: [76.1400, 9.8000, 76.4000, 10.0600]
 scenarios:
   thrissur_pre_monsoon: {timestamp_utc: '2024-04-15T06:30:00Z'}
   thrissur_post_monsoon: {timestamp_utc: '2024-11-15T06:30:00Z'}

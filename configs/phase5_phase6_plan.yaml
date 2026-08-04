@@ -1,0 +1,10 @@
+phase5:
+  status: deferred_until_validated_phase3_checkpoint
+  tile_size_px: 256
+  overlap_px: 32
+  output_resolution_m: 30
+  required_channels: [ndsm, svf, lst, ndvi]
+phase6:
+  status: prototype_shell_only
+  framework: streamlit
+  map_directory: outputs/maps
